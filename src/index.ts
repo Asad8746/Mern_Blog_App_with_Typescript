@@ -13,7 +13,7 @@ app.listen(PORT, () => {
     console.log(`Listening to Port ${PORT}`)
 });
 
-mongoose.connect("mongodb://localhost/Otp").then(() => {
+mongoose.connect("mongodb://localhost/Blogs").then(() => {
     console.log("Connected to mongodb")
 })
 

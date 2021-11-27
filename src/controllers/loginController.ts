@@ -47,16 +47,23 @@ class AuthController {
             if (error) {
                 res.status(422).send({ message: error.details[0].message });
             }
+            const { fname, email } = req.body;
+            const checkUser: User | null = await UserModel.findOne({ email })
+            console.log(checkUser)
+            if (checkUser) {
+                res.status(400).send({ message: `Please choose another Email rather than ${email}` })
+            }
             const password = await bcrypt.hash(req.body.password, await bcrypt.genSalt(10));
             const user: User = new UserModel({
-                fname: req.body.fname,
-                email: req.body.email,
+                fname,
+                email,
                 password
             })
             const token = user.genToken();
             await user.save();
             res.header("Authorization", token).status(201).send({ id: user._id, fname: user.fname, email: user.email })
         } catch (err: any) {
+            console.log(err);
             res.status(400).send(err.message);
         }
     }
