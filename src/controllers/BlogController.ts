@@ -20,44 +20,35 @@ class BlogController {
     @use(validObjectId)
     @use<AuthMiddleware<BlogBody>>(auth)
     async getBlog(req: CustomAuthRequest<undefined, CustomParams>, res: Response) {
-        try {
-            const { id } = req.params;
-
-            const blog: Blog | null = await BlogModel.findById(id);
-            if (!blog) {
-                res.status(404).send({ message: `Blog Not found with following id ${id}` });
-                return;
-            }
-            res.status(200).send(blog);
-        } catch (err: any) {
-            console.log(err.message);
-            res.status(400).send({ message: err.message });
+        const { id } = req.params;
+        const blog: Blog | null = await BlogModel.findById(id);
+        if (!blog) {
+            res.status(404).send({ message: `Blog Not found with following id ${id}` });
+            return;
         }
+        res.status(200).send(blog);
+
     }
     @post("/new")
     @use<AuthMiddleware<BlogBody>>(auth)
     async createBlog(req: CustomAuthRequest<BlogBody>, res: Response) {
-        try {
-            const { error } = blogValidator(req.body);
-            if (error) {
-                res.status(422).send({ message: error.details[0].message });
-                return;
-            }
-            const { user } = req;
-            const { title, description } = req.body;
-
-            const blog: Blog = new BlogModel({
-                user_id: user,
-                title,
-                description
-            })
-
-            await blog.save();
-            res.status(200).send(blog)
-        } catch (err: any) {
-            console.log(err.message);
-            res.status(400).send(err.message);
+        const { error } = blogValidator(req.body);
+        if (error) {
+            res.status(422).send({ message: error.details[0].message });
+            return;
         }
+        const { user } = req;
+        const { title, description } = req.body;
+
+        const blog: Blog = new BlogModel({
+            user_id: user,
+            title,
+            description
+        })
+
+        await blog.save();
+        res.status(200).send(blog)
+
     }
 
 
