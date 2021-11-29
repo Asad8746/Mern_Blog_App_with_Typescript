@@ -1,7 +1,7 @@
-import { Schema, model, ObjectId, Types } from "mongoose";
+import { Schema, model, Types, Document } from "mongoose";
 
-export interface Blog {
-    user_id: ObjectId,
+export interface Blog extends Document<Types.ObjectId> {
+    user_id: Types.ObjectId,
     title: string;
     description: string;
     createdAt: Date,
@@ -25,4 +25,4 @@ const blog_schema = new Schema<Blog>({
 }, { timestamps: true })
 
 
-model<Blog>("Blog", blog_schema)
+export const BlogModel = model<Blog>("Blog", blog_schema)

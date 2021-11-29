@@ -11,7 +11,7 @@ function bindRoute(method: Methods) {
     }
 }
 
-export interface Request<T> extends ExpressRequest {
+export interface Request<T, P = any> extends ExpressRequest<P> {
     body: T
 }
 

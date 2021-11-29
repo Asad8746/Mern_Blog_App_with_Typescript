@@ -16,12 +16,16 @@
     "@types/bcrypt": "^5.0.0",
     "@types/express": "^4.17.13",
     "@types/jsonwebtoken": "^8.5.6",
+    "axios": "^0.24.0",
     "bcrypt": "^5.0.1",
     "concurrently": "^6.4.0",
     "express": "^4.17.1",
     "joi": "^17.4.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.13",
+    "react-redux": "^7.2.6",
+    "redux": "^4.1.2",
+    "redux-thunk": "^2.4.1",
     "reflect-metadata": "^0.1.13"
   }
 }

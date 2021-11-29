@@ -1,5 +1,5 @@
 export enum Keys {
     method = "method",
-    path = "path"
-
+    path = "path",
+    middleware = "middleware"
 }
