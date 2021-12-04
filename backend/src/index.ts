@@ -1,12 +1,16 @@
 import express from "express";
 import { Router } from "./Router";
 import mongoose from "mongoose";
-import "./models"
-import "./controllers/LoginController"
+import cors from "cors";
+import "./controllers/AuthController"
 import "./controllers/BlogController"
+import "./controllers/UserController";
 import { errorMiddleware } from "./middlewares";
 
 const app = express();
+app.use(cors({
+    exposedHeaders: "Authorization"
+}))
 app.use(express.json())
 app.use(Router.getRouter());
 app.use(errorMiddleware);

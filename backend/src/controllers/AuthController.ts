@@ -16,13 +16,13 @@ class AuthController {
         const { email, password } = req.body;
         const user: User | null = await UserModel.findOne({ email })
         if (!user) {
-            res.status(404);
+            res.status(400);
             throw new Error("wrong email or password");
         }
 
         const isValidPassword = await bcrypt.compare(password, user.password);
         if (!isValidPassword) {
-            res.status(404);
+            res.status(400);
             throw new Error("wrong email or password");
         }
         const token = user.genToken();

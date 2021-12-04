@@ -12,8 +12,7 @@ class BlogController {
     @use<AuthMiddleware>(auth)
     async getBlogs(req: CustomAuthRequest, res: Response) {
         const { user: user_id } = req;
-        // const user_id = new mongoose.Types.ObjectId(user);
-        const blogs: Blog[] = await BlogModel.find({ user_id })
+        const blogs: Blog[] = await BlogModel.find({ user_id }).sort({ createdAt: -1 })
         res.status(200).send(blogs);
     }
     @get("/:id")
